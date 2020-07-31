@@ -49,6 +49,10 @@ app.get("/", (req, res) => {
     console.log(database.users);
 })
 
+app.post("/signin", (req, res) => {
+    res.send("Signin");
+})
+
 app.listen(3000, () => {
     console.log("App is runing on port 3000!");
 });

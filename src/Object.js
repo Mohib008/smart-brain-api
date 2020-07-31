@@ -25,8 +25,22 @@ const O3 = {
     isTeaching: true,
     greet: () => {
         console.log("Hi, Nazif are your going to play Cricket this weeekend Shakib is coming too");
+    }, 
+    address: {
+        Number: 2345,
+        Street: "Confideration PKWY",
+        State: "Mississauga, ON",
+        Country: "CA",
     }
 }
 
 console.log(O3);
+
+
+const b = {
+    a: "a",
+    d: "d",
+}
+
+const b2 = Objdect.assign({}, b);
 
