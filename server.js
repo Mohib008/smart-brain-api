@@ -25,7 +25,7 @@ const database = {
             joint: new Date(),
         },
         {
-            id: "1234",
+            id: "12",
             name: "Nazif",
             email: "Nazif.m@gmail.com",
             password: "1234",
@@ -50,9 +50,17 @@ app.get("/", (req, res) => {
 })
 
 app.post("/signin", (req, res) => {
-    res.send("Signin");
+    if(req.body.email === database.users[0].email && req.body.password === database.users[0].password){
+        res.json("Success!");
+    } else {
+        res.status(400).json("Longin fail Try again!");
+    }
 })
+
+
+
 
 app.listen(3000, () => {
     console.log("App is runing on port 3000!");
 });
+
