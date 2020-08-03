@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 const database = {
     users: [
         {
-            id: "123444",
+            id: "123",
             name: "Arsala",
             email: "arsala.m@gmail.com",
             password: "12345",
@@ -17,7 +17,7 @@ const database = {
             joint: new Date(),
         },
         {
-            id: "1244",
+            id: "14",
             name: "Mohib",
             email: "mohib.m@gmail.com",
             password: "145",
@@ -33,7 +33,7 @@ const database = {
             joint: new Date(),
         },
         {
-            id: "12",
+            id: "13",
             name: "shakib",
             email: "Shakib.m@gmail.com",
             password: "145",
@@ -46,7 +46,7 @@ const database = {
 
 
 app.get("/", (req, res) => {
-    console.log(database.users);
+    res.send(database.users);
 })
 
 app.post("/signin", (req, res) => {
@@ -55,7 +55,31 @@ app.post("/signin", (req, res) => {
     } else {
         res.status(400).json("Longin fail Try again!");
     }
-})
+});
+
+app.post("/register", (req, res) => {
+    const {name, email, password} = req.body;
+    database.users.push({
+        id: "12",
+        name: name,
+        email: email,
+        password: password,
+        entries: 0,
+        joint: new Date(),
+    });
+    res.json(database.users[database.users.length-1]);
+});
+
+app.get("/profile/:id", (req, res)=> {
+    const { id } = req.params;
+    database.users.forEach(user => {
+        if(user.id === id) {
+            res.json(user)
+        } else {
+            res.status(404).json("no such a wrod");
+        }
+    });
+});
 
 
 
