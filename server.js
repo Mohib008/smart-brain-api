@@ -17,7 +17,7 @@ const database = {
             joint: new Date(),
         },
         {
-            id: "14",
+            id: "144",
             name: "Mohib",
             email: "mohib.m@gmail.com",
             password: "145",
@@ -41,8 +41,19 @@ const database = {
             joint: new Date(),
         },
 
+    ], 
+
+    longin:[
+
+         {
+           id: "1200",
+           hash: "",
+           email: "arsala@gmail.com"
+         }
     ]
 }
+
+
 
 
 app.get("/", (req, res) => {
@@ -59,6 +70,9 @@ app.post("/signin", (req, res) => {
 
 app.post("/register", (req, res) => {
     const {name, email, password} = req.body;
+    bcrypt.hash(password, null, null, function(err, hash) {
+        console.log(hash);
+    })
     database.users.push({
         id: "12",
         name: name,
@@ -71,16 +85,31 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/profile/:id", (req, res)=> {
+    let found = false;
     const { id } = req.params;
     database.users.forEach(user => {
         if(user.id === id) {
+            found = true;
             res.json(user)
-        } else {
-            res.status(404).json("no such a wrod");
+        } if (!found){
+            res.status(404).json("User not found!");
         }
     });
 });
 
+app.put("/image", (req, res)=> {
+    let found = false;
+    const { id } = req.body;
+    database.users.forEach(user => {
+        if(user.id === id) {
+            found = true;
+            user.entries++
+           return res.json(user.entries)
+        } if (!found){
+            res.status(400).json("User not found!");
+        }
+    });
+});
 
 
 
