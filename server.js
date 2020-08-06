@@ -1,10 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt-nodejs");
+const cors = require("cors");
 const app = express();
 
 
 app.use(bodyParser.json());
+app.use(cors());
 
 const database = {
     users: [
@@ -39,17 +41,7 @@ const database = {
             password: "145",
             entries: 0,
             joint: new Date(),
-        },
-
-    ], 
-
-    longin:[
-
-         {
-           id: "1200",
-           hash: "",
-           email: "arsala@gmail.com"
-         }
+        }
     ]
 }
 
@@ -61,8 +53,9 @@ app.get("/", (req, res) => {
 })
 
 app.post("/signin", (req, res) => {
-    if(req.body.email === database.users[0].email && req.body.password === database.users[0].password){
-        res.json("Success!");
+    if(req.body.email === database.users[0].email &&
+      req.body.password === database.users[0].password){
+        res.json(database.users[0]);
     } else {
         res.status(400).json("Longin fail Try again!");
     }
@@ -70,9 +63,9 @@ app.post("/signin", (req, res) => {
 
 app.post("/register", (req, res) => {
     const {name, email, password} = req.body;
-    bcrypt.hash(password, null, null, function(err, hash) {
-        console.log(hash);
-    })
+    //bcrypt.hash(password, null, null, function(err, hash) {
+        //console.log(hash);
+  //  })
     database.users.push({
         id: "12",
         name: name,
@@ -85,35 +78,36 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/profile/:id", (req, res)=> {
-    let found = false;
     const { id } = req.params;
+    let found = false;
     database.users.forEach(user => {
         if(user.id === id) {
             found = true;
-            res.json(user)
-        } if (!found){
+            return res.json(user);
+        }
+      })
+       if (!found){
             res.status(404).json("User not found!");
         }
     });
-});
 
 app.put("/image", (req, res)=> {
-    let found = false;
     const { id } = req.body;
+    let found = false;
     database.users.forEach(user => {
         if(user.id === id) {
             found = true;
             user.entries++
            return res.json(user.entries)
-        } if (!found){
+        }
+      })
+       if (!found){
             res.status(400).json("User not found!");
         }
     });
-});
 
 
 
 app.listen(3000, () => {
     console.log("App is runing on port 3000!");
 });
-
