@@ -2,6 +2,17 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt-nodejs");
 const app = express();
+const knex = require("knex")
+
+knex({
+    client: 'pg',
+    connection: {
+      host : '127.0.0.1',
+      user : 'your_database_user',
+      password : 'your_database_password',
+      database : 'myapp_test'
+    }
+  });
 
 
 app.use(bodyParser.json());
