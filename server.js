@@ -14,6 +14,7 @@ const db = knex({
   }
 });
 
+
 db.select("*").from("users").then(data => {
   console.log(data);
 });
