@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 
 app.get("/", (req, res) => {
-    res.json(database.users);
+    res.send(database.users);
 })
 
 app.post("/signin", (req, res) => {
