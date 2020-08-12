@@ -13,7 +13,6 @@ const db = knex({
     database : 'nsp'
   }
 });
-const database = [];
 const app = express();
 
 db.select("*").from("users").then(data => {
