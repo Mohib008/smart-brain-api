@@ -12,10 +12,10 @@ const img = require("./controllers/img");
 const db = knex({
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
-    user : 'mohib-arsala',
+    host : 'postgresql-triangular-06750',
+    user : 'hoiuwcgrsienav',
     password : '',
-    database : 'nsp'
+    database : 'DATABASE'
   }
 });
 const app = express();
