@@ -1,3 +1,18 @@
+const Clarifai = require("clarifai");
+
+const app = new Clarifai.App({
+  apiKey: "4913057d21ec49a49a1aadb0f792b40e",
+});
+
+const handleApiCall = (req, res) => {
+app.models
+  .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
+  .then(data => {
+    res.json(data);
+  })
+  .catch(err => res.status(400).json("unalble to work with API!"))
+}
+
 const handleImg = (req, res, db) => {
   const { id } = req.body;
   db("users").where("id", "=", id)
@@ -10,5 +25,6 @@ const handleImg = (req, res, db) => {
 }
 
 module.exports = {
-  handleImg: handleImg
+  handleImg,
+  handleApiCall
 };
